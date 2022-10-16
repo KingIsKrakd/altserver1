@@ -6,6 +6,10 @@ import tkinter.messagebox
 import os
 import sys
 
+abspath = os.path.abspath(__file__)
+dname = os.path.dirname(abspath)
+os.chdir(dname)
+
 anisette_proc = subprocess.Popen("./anisette_server", close_fds=True)
 #Bad practice I know. Give time for anisette to start up
 time.sleep(2)
