@@ -13,7 +13,7 @@ time.sleep(2)
 env = dict(os.environ)
 env["ALTSERVER_ANISETTE_SERVER"] = "http://127.0.0.1:6969"
 
-alt_proc = subprocess.Popen("./AltServer-x86_64", close_fds=True, env=env)
+alt_proc = subprocess.Popen("./AltServer", close_fds=True, env=env)
 
 def exit_handler():
     print("Killing anisette & altserver")
@@ -25,7 +25,7 @@ root = tkinter.Tk()
 
 def runInstall(top, email, password, udid):
     top.destroy()
-    command = "./AltServer-x86_64 --udid " + udid + " -a " + email + " -p " + password + " 1_5.ipa"
+    command = "./AltServer --udid " + udid + " -a " + email + " -p " + password + " 1_5.ipa"
     print(command)
     test = tkinter.messagebox.askokcancel(title="AltStore", message="This will install AltStore on your device. Enter the 2fa code in the terminal that you ran this with. This is untested, if it doesn't work open a github issue and run the command that is currently in the terminal.")
 
@@ -36,7 +36,7 @@ def runInstall(top, email, password, udid):
         except subprocess.CalledProcessError:
             tkinter.messagebox.showinfo(title="Error", message="Error installing AltStore. Check the terminal for more info. This program will now exit.")
             exit()
-        alt_proc = subprocess.Popen("./AltServer-x86_64", close_fds=True, env=env)
+        alt_proc = subprocess.Popen("./AltServer", close_fds=True, env=env)
     
 
 def popupwin(udid):
