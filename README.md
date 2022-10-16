@@ -7,7 +7,7 @@ The Install AltStore feature is untested, but feel free to try it. If you do, op
 
 If there's enough intrest, I will polish and package this to make it even easier to use.
 
-You can contact me on discord if you have any issues: `nab138#2035`
+You can contact me on discord or open a github issue if you have any problems: `nab138#2035`
 # Usage
 1. Clone this repo
 
