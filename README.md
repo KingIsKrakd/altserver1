@@ -19,4 +19,4 @@ The Install AltStore feature is untested, but feel free to try it. If you do, op
 
 # Screenshots
 
-![AltServer GUI](https://nab138.tixte.co/altserver.png)
+![AltServer GUI](https://nab138.tixte.co/r/altserver.png)
