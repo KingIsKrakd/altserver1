@@ -1,0 +1,1 @@
+# Ez-AltServer-Linux
