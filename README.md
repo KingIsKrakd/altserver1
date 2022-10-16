@@ -1,7 +1,7 @@
 # Ez-AltServer-Linux
-I tried to install and use Altserver linux and while it was cool, it was a huge pain. This is an application designed to make installation & usage easy.
+I tried to install and use Altserver linux and while it was cool, it was a huge pain. This is an application designed to make usage easy.
 
-This is also a project I'm using to get more comfortable with python.
+This is also a project I'm using to get more comfortable with python. I barely did anything here, all credit goes to NyaMisty for making AltServer-Linux. I just made a simple python script to make it easier to use.
 
 The Install AltStore feature is untested, but feel free to try it. If you do, open an issue to let me know how it goes even if it was successful
 # Usage
