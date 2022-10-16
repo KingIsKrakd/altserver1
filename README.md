@@ -16,3 +16,7 @@ The Install AltStore feature is untested, but feel free to try it. If you do, op
 5. Download the Apple Music APK and extract it. Place the lib directory in the same directory as the rest of the files. You can delete every folder except your architecture and every file in that folder except libstoreservicescore.so and libCoreADI.so. For more info, check out [Provision](https://github.com/Dadoum/Provision).
 
 6. As long as you have python 3.8 and tkinter, you can just run main.py. If you have issues with the device UDID, use the -u flag to specify it manually.
+
+# Screenshots
+
+![AltServer GUI](https://nab138.tixte.co/altserver.png)
