@@ -4,6 +4,10 @@ I tried to install and use Altserver linux and while it was cool, it was a huge 
 This is also a project I'm using to get more comfortable with python. I barely did anything here, all credit goes to NyaMisty for making AltServer-Linux. I just made a simple python script to make it easier to use.
 
 The Install AltStore feature is untested, but feel free to try it. If you do, open an issue to let me know how it goes even if it was successful
+
+If there's enough intrest, I will polish and package this to make it even easier to use.
+
+You can contact me on discord if you have any issues: `nab138#2035`
 # Usage
 1. Clone this repo
 
