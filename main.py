@@ -84,7 +84,7 @@ def installAltStore():
     try:
         udid = subprocess.check_output("idevice_id -l", shell=True)
     except subprocess.CalledProcessError:
-        tkinter.messagebox.showinfo(title="UDID Error", message="Error getting UDID: Is your device connected? Is idevice_id installed? (If you don't want/can't install it, specify a udid on the command line with flag -u")
+        tkinter.messagebox.showinfo(title="UDID Error", message="Error getting UDID: Is your device connected? Is libimobiledevice-utils installed? (If you don't want/can't install it, specify a udid on the command line with flag -u")
         return
 
     udid = udid.decode("utf-8")
