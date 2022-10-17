@@ -15,11 +15,13 @@ You can contact me on discord or open a github issue if you have any problems: `
 
 3. Download the latest binary of [Anisette-server](https://github.com/Dadoum/Provision/releases) for your platform and place it here named `anisette_server` (no file extension) (You don't need libprovision, only anisette_server)
 
-4. Ensure both binaries from step one and two are executable `chmod +x AltServer` `chmod +x anisette_server`
+4. Ensure both binaries from step two and three are executable `chmod +x AltServer` `chmod +x anisette_server`
 
 5. Download the Apple Music APK and extract it. Place the lib directory in the same directory as the rest of the files. You can delete every folder except your architecture and every file in that folder except libstoreservicescore.so and libCoreADI.so. For more info, check out [Provision](https://github.com/Dadoum/Provision).
 
-6. As long as you have python 3.8 and tkinter, you can just run main.py. If you have issues with the device UDID, use the -u flag to specify it manually.
+6. Use pip to install the requirments from requirements.txt `pip install -r requirements.txt`
+
+7. As long as you have python 3.8 and tkinter, you can just run main.py. If you have issues with the device UDID, use the -u flag to specify it manually.
 
 # Screenshots
 
