@@ -8,7 +8,9 @@ import pystray
 import os
 import argparse
 from PIL import Image
+import platform
 
+print("platform.architecture() = " , platform.architecture())
 parser = argparse.ArgumentParser(description='Install AltStore on your device')
 parser.add_argument('-u', help='Specify the UDID of your device manually. Will bypass any libimobiledevice-utils calls.')
 args = parser.parse_args()
@@ -17,14 +19,22 @@ abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
 os.chdir(dname)
 
-anisette_proc = subprocess.Popen("./anisette_server", close_fds=True)
+if(os.path.isfile("AltServer") == False):
+    tkinter.messagebox.showinfo(title="AltServer", message="Will download the latest release of AltStore for ")
+    try:
+        subprocess.Popen("wget https://cdn.altstore.io/file/altstore/apps/altstore/1_5.ipa", close_fds=True, shell=True).wait()
+    except subprocess.CalledProcessError:
+        tkinter.messagebox.showinfo(title="Error", message="Error downloading AltStore. Check the terminal for more info. If the issue persists, download AltStore ipa from https://cdn.altstore.io/file/altstore/apps/altstore/1_5.ipa manually.")
+        exit()
+
+#anisette_proc = subprocess.Popen("./anisette_server", close_fds=True)
 #Bad practice I know. Give time for anisette to start up
 time.sleep(2)
 
 env = dict(os.environ)
 env["ALTSERVER_ANISETTE_SERVER"] = "http://127.0.0.1:6969"
 
-alt_proc = subprocess.Popen("./AltServer", close_fds=True, env=env)
+#alt_proc = subprocess.Popen("./AltServer", close_fds=True, env=env)
 
 def exit_handler():
     print("Killing anisette & altserver")
