@@ -103,6 +103,7 @@ def installAltStore():
 root.title("AltServer")
 root.geometry("500x180")
 root.resizable(False, False)
+root.iconphoto(True, PhotoImage(file="altserver.png"))
 
 altstoreImg = tkinter.PhotoImage(file="altserver.png")
 altstoreImg = altstoreImg.subsample(3, 3)
@@ -110,8 +111,8 @@ imgLabel = tkinter.Label(root, image=altstoreImg)
 imgLabel.place(x=5, y=5)
 
 # Add main text
-mainText = tkinter.Label(root, text="AltServer is running in the background. To install apps, open AltStore on your iOS device.", font=("Helvetica", 12), wraplength=375)
-mainText.place(x=125, y=40)
+mainText = tkinter.Label(root, text="AltServer is running in the background. To install apps, open AltStore on your iOS device. Closing this window will minimize to tray.", font=("Helvetica", 12), wraplength=370)
+mainText.place(x=125, y=30)
 
 # Add quit button
 quitButton = tkinter.Button(root, text="Quit", command=root.destroy)
