@@ -9,6 +9,7 @@ import os
 import argparse
 from PIL import Image
 import platform
+import sys
 
 print("platform.architecture() = " , platform.architecture())
 parser = argparse.ArgumentParser(description='Install AltStore on your device')
@@ -20,21 +21,37 @@ dname = os.path.dirname(abspath)
 os.chdir(dname)
 
 if(os.path.isfile("AltServer") == False):
-    tkinter.messagebox.showinfo(title="AltServer", message="Will download the latest release of AltStore for ")
-    try:
-        subprocess.Popen("wget https://cdn.altstore.io/file/altstore/apps/altstore/1_5.ipa", close_fds=True, shell=True).wait()
-    except subprocess.CalledProcessError:
-        tkinter.messagebox.showinfo(title="Error", message="Error downloading AltStore. Check the terminal for more info. If the issue persists, download AltStore ipa from https://cdn.altstore.io/file/altstore/apps/altstore/1_5.ipa manually.")
+    confirm = tkinter.messagebox.askokcancel(title="AltServer", message="Will download the latest release of AltServer Linux for x86_64. If you have a different platform download it manually and name it AltServer")
+    if(confirm == False):
         exit()
-
-#anisette_proc = subprocess.Popen("./anisette_server", close_fds=True)
+    try:
+        subprocess.Popen("curl -L https://github.com/NyaMisty/AltServer-Linux/releases/latest/download/AltServer-x86_64 --output AltServer", close_fds=True, shell=True).wait()
+        subprocess.Popen("chmod +x AltServer", close_fds=True, shell=True).wait()
+        if(os.path.isfile("anisette_server") == True):
+            tkinter.messagebox.showinfo(title="AltServer", message="Will now terminate. Please run this program again.")
+            exit()
+    except subprocess.CalledProcessError:
+        tkinter.messagebox.showinfo(title="Error", message="Error downloading AltServer. Check the terminal for more info. If the issue persists, download AltServer from https://github.com/NyaMisty/AltServer-Linux/releases/latest/download/AltServer-x86_64 manually.")
+        exit()
+if(os.path.isfile("anisette_server") == False):
+    confirm = tkinter.messagebox.askokcancel(title="AltServer", message="Will download the latest release of Anisette server for x86_64. If you have a different platform download it manually and name it anisette_server. The program will terminate after, you can restart it.")
+    if(confirm == False):
+        exit()
+    try:
+        subprocess.Popen("curl -L https://github.com/Dadoum/Provision/releases/latest/download/anisette_server-x86_64 --output anisette_server", close_fds=True, shell=True).wait()
+        subprocess.Popen("chmod +x anisette_server", close_fds=True, shell=True).wait()
+        exit()
+    except subprocess.CalledProcessError:
+        tkinter.messagebox.showinfo(title="Error", message="Error downloading Anisette Check the terminal for more info. If the issue persists, download Anisette Server from https://github.com/Dadoum/Provision/releases/latest/download/anisette_server-x86_64 manually.")
+        exit()
+anisette_proc = subprocess.Popen("./anisette_server", close_fds=True)
 #Bad practice I know. Give time for anisette to start up
 time.sleep(2)
 
 env = dict(os.environ)
 env["ALTSERVER_ANISETTE_SERVER"] = "http://127.0.0.1:6969"
 
-#alt_proc = subprocess.Popen("./AltServer", close_fds=True, env=env)
+alt_proc = subprocess.Popen("./AltServer", close_fds=True, env=env)
 
 def exit_handler():
     print("Killing anisette & altserver")
@@ -86,7 +103,7 @@ def installAltStore():
     if(os.path.isfile("1_5.ipa") == False):
         tkinter.messagebox.showinfo(title="AltStore", message="This will now download AltStore 1.5")
         try:
-            subprocess.Popen("wget https://cdn.altstore.io/file/altstore/apps/altstore/1_5.ipa", close_fds=True, shell=True).wait()
+            subprocess.Popen("curl -o 1_5.ipa https://cdn.altstore.io/file/altstore/apps/altstore/1_5.ipa", close_fds=True, shell=True).wait()
         except subprocess.CalledProcessError:
             tkinter.messagebox.showinfo(title="Error", message="Error downloading AltStore. Check the terminal for more info. If the issue persists, download AltStore ipa from https://cdn.altstore.io/file/altstore/apps/altstore/1_5.ipa manually.")
             exit()
@@ -133,7 +150,7 @@ installAltstoreButton = tkinter.Button(root, text="Install AltStore", command=in
 installAltstoreButton.place(x=160, y=95)
 
 # Add credits label
-creditsLabel0 = tkinter.Label(root, text="This gui by nab138", font=("Helvetica", 8))
+creditsLabel0 = tkinter.Label(root, text="This GUI by nab138", font=("Helvetica", 8))
 creditsLabel0.place(x=2, y=130)
 creditsLabel1 = tkinter.Label(root, text="AltServer by Riley Testut", font=("Helvetica", 8))
 creditsLabel1.place(x=2, y=142)
