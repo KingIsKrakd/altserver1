@@ -3,8 +3,15 @@ import subprocess
 import time
 from tkinter import*
 import tkinter.messagebox
+from pystray import MenuItem as item
+import pystray
 import os
-import sys
+import argparse
+from PIL import Image
+
+parser = argparse.ArgumentParser(description='Install AltStore on your device')
+parser.add_argument('-u', help='Specify the UDID of your device manually. Will bypass any libimobiledevice-utils calls.')
+args = parser.parse_args()
 
 abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
@@ -31,7 +38,7 @@ def runInstall(top, email, password, udid):
     top.destroy()
     command = "./AltServer --udid " + udid + " -a " + email + " -p " + password + " 1_5.ipa"
     print(command)
-    test = tkinter.messagebox.askokcancel(title="AltStore", message="This will install AltStore on your device. Enter the 2fa code in the terminal that you ran this with. This is untested, if it doesn't work open a github issue and run the command that is currently in the terminal.")
+    test = tkinter.messagebox.askokcancel(title="AltStore", message="Enter the 2fa code in the terminal that you ran this with. This is untested, if it doesn't work open a github issue and run the command that is currently in the terminal.")
 
     if(test == True):
         subprocess.Popen.kill(alt_proc)
@@ -43,59 +50,58 @@ def runInstall(top, email, password, udid):
         alt_proc = subprocess.Popen("./AltServer", close_fds=True, env=env)
     
 
-def popupwin(udid):
-    test = tkinter.messagebox.askyesno(title="UDID", message="Is the following device UDID Correct? (If unsure, press yes): " + udid)
+def popupwin(udid, name):
+    test = tkinter.messagebox.askokcancel(title="UDID", message="Install AltStore onto the device \"" + name + "\" with the UDID \"" + udid + "\"?")
 
     if(test == False):
-        tkinter.messagebox.showinfo(title="UDID", message="Specify the UDID of your device with the -u flag")
         return 
     top = Toplevel(root)
     top.title("Apple ID")
     top.geometry("250x100")
-    # add email label
+
     emailLabel = Label(top, text="Email")
     emailLabel.grid(row=0, column=0)
     email = Entry(top, width=21)
     email.grid(row=0, column=1)
 
-    # add password label
     passwordLabel = Label(top, text="Password")
     passwordLabel.grid(row=1, column=0)
     password = Entry(top, width=21)
     password.grid(row=1, column=1)
 
-    button= Button(top, text="Ok", command=lambda:runInstall(top, email.get(), password.get(), udid))
+    button = Button(top, text="Ok", command=lambda:runInstall(top, email.get(), password.get(), udid))
     button.grid(row=2, column=1)
 
 def installAltStore():
-    tkinter.messagebox.showinfo(title="AltStore", message="This will now download AltStore 1.5")
-    # Check if 1_5.ipa exists
     if(os.path.isfile("1_5.ipa") == False):
+        tkinter.messagebox.showinfo(title="AltStore", message="This will now download AltStore 1.5")
         try:
             subprocess.Popen("wget https://cdn.altstore.io/file/altstore/apps/altstore/1_5.ipa", close_fds=True, shell=True).wait()
         except subprocess.CalledProcessError:
             tkinter.messagebox.showinfo(title="Error", message="Error downloading AltStore. Check the terminal for more info. If the issue persists, download AltStore ipa from https://cdn.altstore.io/file/altstore/apps/altstore/1_5.ipa manually.")
             exit()
-    # check if -u flag is present
-    if(len(sys.argv) == 3):
-        if(sys.argv[1] == "-u"):
-            popupwin(sys.argv[2])
-            return
+
+    if(args.u != None):
+        popupwin(args.u, "Unknown")
+        return
+        
     try:
         udid = subprocess.check_output("idevice_id -l", shell=True)
+        name = subprocess.check_output("ideviceinfo -k DeviceName", shell=True)
     except subprocess.CalledProcessError:
-        tkinter.messagebox.showinfo(title="UDID Error", message="Error getting UDID: Is your device connected? Is libimobiledevice-utils installed? (If you don't want/can't install it, specify a udid on the command line with flag -u")
+        tkinter.messagebox.showinfo(title="Device Error", message="Error communicating with device: Is your device connected? Is libimobiledevice-utils installed?")
         return
 
     udid = udid.decode("utf-8")
     udid = udid.strip()
-
-    popupwin(udid)
+    name = name.decode("utf-8")
+    name = name.strip()
+    popupwin(udid, name)
     
 
 
 root.title("AltServer")
-root.geometry("500x200")
+root.geometry("500x180")
 root.resizable(False, False)
 
 altstoreImg = tkinter.PhotoImage(file="altserver.png")
@@ -117,12 +123,31 @@ installAltstoreButton.place(x=160, y=95)
 
 # Add credits label
 creditsLabel0 = tkinter.Label(root, text="This gui by nab138", font=("Helvetica", 8))
-creditsLabel0.place(x=2, y=150)
+creditsLabel0.place(x=2, y=130)
 creditsLabel1 = tkinter.Label(root, text="AltServer by Riley Testut", font=("Helvetica", 8))
-creditsLabel1.place(x=2, y=162)
+creditsLabel1.place(x=2, y=142)
 creditsLabel2 = tkinter.Label(root, text="Anisette-server by Dadoum", font=("Helvetica", 8))
-creditsLabel2.place(x=2, y=174)
+creditsLabel2.place(x=2, y=154)
 creditsLabel3 = tkinter.Label(root, text="AltServer-Linux by NyaMisty", font=("Helvetica", 8))
-creditsLabel3.place(x=2, y=186)
-root.mainloop()
+creditsLabel3.place(x=2, y=166)
 
+def quit_window(icon, item):
+   icon.stop()
+   root.destroy()
+
+# Define a function to show the window again
+def show_window(icon, item):
+   icon.stop()
+   root.after(0,root.deiconify())
+
+# Hide the window and show on the system taskbar
+def hide_window():
+   root.withdraw()
+   image=Image.open("altserver.ico")
+   menu=(item('Quit', quit_window), item('Show', show_window))
+   icon=pystray.Icon("name", image, "AltServer", menu)
+   icon.run()
+
+root.protocol('WM_DELETE_WINDOW', hide_window)
+
+root.mainloop()
