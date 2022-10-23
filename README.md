@@ -32,6 +32,11 @@ In the near future I plan to:
 
 When all of these features are done I will build & publish a release
 
+Some point in the future I plan to:
+- [ ] Add a box to enter the 2fa code in the gui
+- [ ] Detect platform to download the correct binaries for anisette_server and AltServer, and save on space with the apple music libs
+
+
 Will not impliment:
 - Saving username/password - Don't want to mess with doing it securly and it isn't really neccessary, since altstore on device saves the apple id password. You only need to press install altstore once or twice and typing your password manually is easy enough
 
