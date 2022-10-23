@@ -27,8 +27,8 @@ In the near future I plan to:
 - [x] Setup pyinstaller to build binaries
 - [ ] Fix tray issue
 - [x] Fix install altstore
-- [ ] Add pair button
-- [ ] Add restart usbmuxd button
+- [x] Add pair button
+- [x] Add restart usbmuxd button
 
 When all of these features are done I will build & publish a release
 
