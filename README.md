@@ -26,7 +26,7 @@ In the near future I plan to:
 - [x] Automate install of libraries
 - [x] Setup pyinstaller to build binaries
 - [ ] Fix tray issue
-- [ ] Fix install altstore
+- [x] Fix install altstore
 - [ ] Add pair button
 - [ ] Add restart usbmuxd button
 
