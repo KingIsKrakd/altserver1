@@ -25,10 +25,11 @@ Closing the window will minimize it to tray, where it can be quit or maximized. 
 In the near future I plan to:
 - [x] Automate install of libraries
 - [x] Setup pyinstaller to build binaries
-- [ ] Fix tray issue
+- [x] Fix tray issue
 - [x] Fix install altstore
 - [x] Add pair button
 - [x] Add restart usbmuxd button
+- [ ] Fix threading quit issue
 
 When all of these features are done I will build & publish a release
 
