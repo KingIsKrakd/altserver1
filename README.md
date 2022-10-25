@@ -21,6 +21,8 @@ You can contact me on discord or open a github issue if you have any problems: `
 When the program is running, so is altserver-linux and anisette server. Install altstore does as it says, but requires the program to be run via terminal to input the 2fa code (may be fixed later if enough interest for this repo is found)
 
 Closing the window will minimize it to tray, where it can be quit or maximized. It does NOT kill altserver or anisette.
+
+If your trying to do things like netmuxd, any env variables you set will be passed to altserver-linux (but not anisette_Server)
 # Future Plans
 In the near future I plan to:
 - [x] Automate install of libraries
