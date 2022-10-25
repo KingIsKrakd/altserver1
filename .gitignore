@@ -2,3 +2,5 @@ lib/
 AltServer
 1_5.ipa
 anisette_server
+build
+dist
