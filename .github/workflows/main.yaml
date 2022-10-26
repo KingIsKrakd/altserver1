@@ -1,0 +1,6 @@
+- name: PyInstaller Linux
+  uses: JackMcKew/pyinstaller-action-linux@tkinter
+    with:
+      path: .
+      tkinter: true
+  
