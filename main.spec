@@ -28,7 +28,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='altserver_gui',
+    name='altserver-gui',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
